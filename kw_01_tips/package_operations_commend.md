@@ -6,7 +6,7 @@ bashbash复制mkdir -p ~/binmkdir -p：如果目录不存在则创建，存在�
 ~/bin：在用户主目录下创建 bin 目录
 2. 创建 run_jp 脚本文件
 bashbash复制cat > ~/bin/run_jp << 'EOF'
-'
+`
 #!/bin/bash
 # start up the jupyter
 
@@ -19,7 +19,7 @@ conda activate
 # 启动 jupyter notebook
 jupyter notebook
 EOF
-'
+`
 cat > ~/bin/run_jp：创建文件并写入内容
 << 'EOF'：开始多行输入，直到遇到单独的 EOF
 脚本内容：包含启动 Jupyter Notebook 的命令
