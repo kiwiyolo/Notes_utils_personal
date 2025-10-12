@@ -146,7 +146,7 @@ chmod +x ~/Desktop/Jupyter.desktop
 
 现在您可以直接在终端输入 `run_jp` 来启动 Jupyter Notebook，无需使用 `./` 前缀。
 
-# making a alias for some commends that need special pwd or environment
+# making an alias for some commends that need special pwd or environment
 To make the `envtorch` script executable while ensuring it properly activates the environment in your **current shell session**, you need to modify your approach. Here's the solution:
 
 ### 1. First, modify your `envtorch` script to be **sourced**:
