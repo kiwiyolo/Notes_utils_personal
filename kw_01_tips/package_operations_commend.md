@@ -145,3 +145,63 @@ chmod +x ~/Desktop/Jupyter.desktop
 ```
 
 现在您可以直接在终端输入 `run_jp` 来启动 Jupyter Notebook，无需使用 `./` 前缀。
+
+# making a new name for some commends that need special pwd or environment
+To make the `envtorch` script executable while ensuring it properly activates the environment in your **current shell session**, you need to modify your approach. Here's the solution:
+
+### 1. First, modify your `envtorch` script to be **sourced**:
+```bash
+#!/bin/bash
+# This script MUST be sourced, not executed!
+# Usage: source envtorch
+
+# Load the Anaconda module
+module load python/anaconda3/2022.10 || return 1
+
+# Activate base environment
+source activate || return 1
+
+# Activate target environment
+conda activate py311_torch27-cuda118 || return 1
+```
+
+### 2. Make it executable:
+```bash
+chmod +x ~/bin/envtorch
+```
+
+### 3. Create an alias in your `~/.bashrc`:
+Add this line to the end of your `~/.bashrc` file:
+```bash
+alias envtorch='source ~/bin/envtorch'
+```
+
+### 4. Reload your bash configuration:
+```bash
+source ~/.bashrc
+```
+
+### Now you can run it as a command:
+```bash
+envtorch
+```
+
+### How it works:
+1. The alias makes `envtorch` actually run `source ~/bin/envtorch`
+2. `source` executes the script in your current shell session
+3. Environment changes (module load, conda activate) persist
+4. The `|| return 1` ensures immediate exit on errors
+
+### Alternative solution (if you can't modify .bashrc):
+Run it directly with:
+```bash
+source ~/bin/envtorch
+```
+
+### Important notes:
+- The script must be sourced to affect your current shell
+- Executing it normally (`./envtorch`) won't work for environment changes
+- The alias trick makes it behave like a regular command
+- Ensure there are no spaces around the `=` in the alias definition
+
+After this setup, running `envtorch` will properly activate your environment just like running the commands manually.
